@@ -1,0 +1,125 @@
+body {
+background-color:grey;
+background-position: center;
+height: 100vh;
+margin: 0;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+#map {
+position: absolute;
+width: 200px;
+height: 100px;
+border: 2px solid black;
+}
+
+#search-form{
+position:absolute;
+top: 200px;
+right: 20px;
+padding: 5px 30px;
+text-align: right;
+}
+
+#search-input1{
+position:absolute;
+top: 300px;
+right: 1320%;
+padding: 5px 30px;
+text-align: left;
+}
+
+#search-input2{
+position:absolute;
+top: 350px;
+right: 1320%;
+padding: 5px 30px;
+text-align: left;
+}
+
+#search-button1{
+position: absolute;
+top: 400px;
+right: 1380%;
+padding:1px 10px;
+border-radius: 5px;
+cursor: pointer;
+text-align: right;
+}
+
+#search-button1:hover{
+background-color: #3e8e41;
+}
+
+#distance-result {
+position: relative;
+top: 450px;
+right: 1400%;
+padding: 5px 30px;
+text-align: right;
+font-weight: bold;
+color: #000000;
+}
+
+* {
+box-sizing: border-box;
+}
+/* Create a column layout with Flexbox */
+.row {
+display: table;
+color: #00698f;
+}
+
+/* Left column (menu) */
+.left {
+padding: 1px 0;
+width: 165%;
+}
+
+h1 {
+padding-left: 5px;
+font-size: 18px;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+color: #3e8e41;
+}
+
+img{
+position: absolute;
+left: 280px;
+top:1px;
+height:11%;
+width: 6%;
+}
+
+.left h2 {
+padding-left: 5px;
+font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style the search box */
+#mySearch {
+width: 100%;
+font-size: 18px;
+padding: 11px;
+border: 1px solid #ddd;
+}
+
+/* Style the navigation menu inside the left column */
+#myMenu {
+list-style-type: none;
+font-family: 'Times New Roman', Times, serif;
+padding: 0;
+margin: 0;
+}
+
+#myMenu li a {
+padding: 12px;
+text-decoration: none;
+font-family: 'Times New Roman', Times, serif;
+color: black;
+display: block
+}
+
+#myMenu li a:hover {
+background-color: #74ce80;
+}

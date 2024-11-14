@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Health Facility Sample Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="C:/HealthFacilityMap/images/tremap.png"/>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+
+    <style>   
+      body {
+			  background-color:grey;
+			  background-position: center;
+			  height: 100vh;
+			  margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #map {
+        position: absolute;
+        width: 200px;
+        height: 100px;
+        border: 2px solid black;
+        
+      }
+
+      #search-form{
+        position:absolute;
+        top: 200px;
+        right: 20px;
+        padding: 5px 30px;
+        text-align: right;
+      }
+      #search-input1{
+        position:absolute;
+        top: 300px;
+        right: 1320%;
+        padding: 5px 30px;
+        text-align: left;
+      }
+      #search-input2{
+        position:absolute;
+        top: 350px;
+        right: 1320%;
+        padding: 5px 30px;
+        text-align: left;
+      }#search-button1{
+        position: absolute;
+        top: 400px;
+        right: 1380%;
+        padding:1px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: right;
+      }
+      #search-button1:hover{
+        background-color: #3e8e41;
+      }
+      #distance-result {
+        position: relative;
+        top: 450px;
+        right: 1400%;
+        padding: 5px 30px;
+        text-align: right;
+        font-weight: bold;
+        color: #000000;
+      }
+
+* {
+  box-sizing: border-box;
+}
+      /* Create a column layout with Flexbox */
+.row {
+  display: table;
+  color: #00698f;
+}
+
+/* Left column (menu) */
+.left {
+  padding: 1px 0;
+  width: 165%;
+}
+
+h1 {
+  padding-left: 5px;
+  font-size: 18px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #3e8e41;
+}
+img{
+  position: absolute;
+  left: 280px;
+  top:1px;
+  height:11%;
+  width: 6%;
+}
+
+.left h2 {
+  padding-left: 5px;
+  font-family: 'Times New Roman', Times, serif;
+}
+label{
+  color: #000000;
+  font-size: 23px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Style the search box */
+#mySearch {
+  width: 100%;
+  font-size: 18px;
+  padding: 11px;
+  border: 1px solid #ddd;
+}
+
+/* Style the navigation menu inside the left column */
+#myMenu {
+  list-style-type: none;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 0;
+  margin: 0;
+}
+
+#myMenu label input {
+  padding: 12px;
+  text-decoration: none;
+  font-family: 'Times New Roman', Times, serif;
+  color: black;
+}
+
+footer {
+  background-color: #1E3D58;
+  position: relative;
+  top: 500px;
+  color: white;
+  text-align: left;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+  
+    </style>
+ 
+</head>
+  <body>
+
+      <div class="row">
+        <div class="left" style="background-color:#bbb;">
+          <h1>Cordillera Administrative Region <br>Health Facilities Map </h1>
+          <img src="images/DOH.png">
+          <h2>Menu</h2>
+      <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+      <!-- Create a dropdown menu -->
+      <ul id="myMenu">
+
+        <!-- List of categories -->
+        <br><label><input href="#" type="checkbox" data-category="Hospital" onclick="filterMarkers('Hospital')">Hospitals</label>
+        <br><label><input href="#" type="checkbox" data-category="BHS" onclick="filterMarkers('BHS')">Barangay Health Services</label>
+        <br><label><input href="#" type="checkbox" data-category="Rural" onclick="filterMarkers('Rural')">Rural Health Units</label>
+        <br><label><input href="#" type="checkbox" data-category="Primary" onclick="filterMarkers('Primary')">Primary Care Facilities</label>
+        <br><label><input href="#" type="checkbox" data-category="Birthing" onclick="filterMarkers('Birthing')">Birthing Homes</label> 
+        <br><label><input href="#" type="checkbox" data-category="Infirmary" onclick="filterMarkers('Infirmary')">Infirmaries</label>
+        <br><label><input href="#" type="checkbox" data-category="Blood" onclick="filterMarkers('Blood')">Blood Centers</label> 
+
+      </ul>
+      </div>
+    </div>
+
+    <script>
+      function myFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("mySearch");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myMenu");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+          a = li[i].getElementsByTagName("a")[0];
+          if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+      }
+      </script>
+ <footer>
+  <p>&copy; 2024 Hospital Locator. All rights reserved.</p>
+</footer>
+
+    <div id="map" style="width: 78.5%; height: 100vh; top: 0px; left: 21%;"></div>
+    <script src="main.js"></script>
+  </body>
+</html>
